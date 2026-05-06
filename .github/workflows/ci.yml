@@ -1,0 +1,32 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  arduino-cli-compile:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup arduino-cli
+        uses: arduino/setup-arduino-cli@v2
+
+      - name: Install ESP32 core (pinned)
+        run: |
+          arduino-cli config init --overwrite
+          arduino-cli config set board_manager.additional_urls "https://espressif.github.io/arduino-esp32/package_esp32_index.json"
+          arduino-cli core update-index
+          arduino-cli core install esp32:esp32@3.3.8
+
+      - name: Install libraries (pinned)
+        run: |
+          arduino-cli lib update-index
+          arduino-cli lib install --no-deps --yes "$(cat pocketmeteo/libraries.txt)"
+
+      - name: Compile sketch (ESP32-C3)
+        run: |
+          arduino-cli compile -b esp32:esp32:esp32c3 pocketmeteo/
+
