@@ -17,6 +17,8 @@ Eink270Driver::Eink270Driver(const Pins &pins)
     : pins_(pins),
       display_(GxEPD2_270(pins_.cs, pins_.dc, pins_.rst, pins_.busy)) {}
 
+Eink270Driver::Eink270Driver() : Eink270Driver(Pins{}) {}
+
 bool Eink270Driver::begin() {
   display_.init(115200, true, 2, false);
   display_.setRotation(1);

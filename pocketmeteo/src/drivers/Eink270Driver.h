@@ -15,7 +15,8 @@ public:
     std::int8_t busy{2};
   };
 
-  explicit Eink270Driver(const Pins &pins = Pins{});
+  Eink270Driver();
+  explicit Eink270Driver(const Pins &pins);
 
   bool begin() override;
   void clear(hal::DisplayUpdateMode mode) override;
