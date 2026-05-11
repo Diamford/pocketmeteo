@@ -7,7 +7,9 @@
 
 namespace pm::drivers {
 
-Bmp390Driver::Bmp390Driver(Config config) : config_(config) {}
+Bmp390Driver::Bmp390Driver() = default;
+
+Bmp390Driver::Bmp390Driver(const Config &config) : config_(config) {}
 
 bool Bmp390Driver::begin() {
   Wire.begin();
