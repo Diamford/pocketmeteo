@@ -10,7 +10,8 @@ namespace pm::domain {
 
 class PressureHistory {
 public:
-  explicit PressureHistory(std::size_t capacity = 18);
+  // 19 points at 10-minute intervals cover a full 3-hour delta.
+  explicit PressureHistory(std::size_t capacity = 19);
 
   void append(std::int64_t timestamp_s, float pressure_hpa);
   void clear();

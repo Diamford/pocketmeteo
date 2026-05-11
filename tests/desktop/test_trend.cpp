@@ -15,7 +15,7 @@ void require(bool condition, const char *message) {
 } // namespace
 
 void runTrendTests() {
-  pm::domain::PressureHistory history(18);
+  pm::domain::PressureHistory history(19);
   const std::int64_t base = 1'000;
 
   for (int i = 0; i < 19; ++i) {
@@ -26,7 +26,7 @@ void runTrendTests() {
   require(delta.has_value(), "trend should exist for 3h history");
   require(std::fabs(*delta - 3.6f) < 0.05f, "unexpected trend value");
 
-  pm::domain::PressureHistory short_history(18);
+  pm::domain::PressureHistory short_history(19);
   short_history.append(base, 1000.0f);
   short_history.append(base + 600, 1000.2f);
   const auto short_delta = pm::domain::TrendAnalyzer::delta3hHpa(short_history);
