@@ -14,6 +14,14 @@ void App::begin() {
   } else {
     LOG_E("BMP390 init failed");
   }
+
+  display_ready_ = display_.begin();
+  if (display_ready_) {
+    LOG_I("e-ink initialized");
+    drawBootScreen();
+  } else {
+    LOG_E("e-ink init failed");
+  }
 }
 
 void App::loop() {
@@ -42,6 +50,19 @@ void App::logSensorReading() {
   snprintf(buffer, sizeof(buffer), "sensor t=%.2fC p=%.1fPa", reading.temperature_c,
            reading.pressure_pa);
   LOG_I(buffer);
+}
+
+void App::drawBootScreen() {
+  if (!display_ready_) {
+    return;
+  }
+
+  display_.clear(hal::DisplayUpdateMode::Full);
+  display_.drawText("POCKETMETEO", hal::TextStyle{8, 40, 0, false});
+  display_.drawText("Погода запущена", hal::TextStyle{8, 70, 0, true});
+  display_.drawText("Датчик BMP390 активен",
+                    hal::TextStyle{8, 96, 0, true});
+  display_.commit(hal::DisplayUpdateMode::Full);
 }
 
 } // namespace pm
