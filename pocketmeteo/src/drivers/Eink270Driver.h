@@ -19,7 +19,8 @@ public:
   explicit Eink270Driver(const Pins &pins);
 
   bool begin() override;
-  void clear(hal::DisplayUpdateMode mode) override;
+  void clear(hal::DisplayUpdateMode mode,
+             const hal::PartialRect *area) override;
   void drawText(std::string_view text, const hal::TextStyle &style) override;
   bool commit(hal::DisplayUpdateMode mode) override;
 
@@ -30,11 +31,15 @@ private:
                                      char *buffer, std::size_t &len,
                                      std::size_t capacity);
 
-  void beginFrame(hal::DisplayUpdateMode mode);
+  void beginFrame(hal::DisplayUpdateMode mode, const hal::PartialRect *area);
 
   Pins pins_{};
   bool frame_open_{false};
   bool partial_mode_{false};
+  std::int16_t partial_x_{0};
+  std::int16_t partial_y_{0};
+  std::uint16_t partial_w_{0};
+  std::uint16_t partial_h_{0};
   GxEPD2_BW<GxEPD2_270, GxEPD2_270::HEIGHT> display_;
 };
 

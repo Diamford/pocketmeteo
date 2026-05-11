@@ -5,6 +5,7 @@ void runPressureHistoryTests();
 void runSeaLevelTests();
 void runTrendTests();
 void runZambrettiTests();
+void runScreenRendererTests();
 
 int main() {
   try {
@@ -12,6 +13,7 @@ int main() {
     runSeaLevelTests();
     runTrendTests();
     runZambrettiTests();
+    runScreenRendererTests();
   } catch (const std::exception &ex) {
     std::cerr << "Test failure: " << ex.what() << '\n';
     return 1;

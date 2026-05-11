@@ -15,10 +15,12 @@ add_executable(domain_tests
   test_sea_level.cpp
   test_trend.cpp
   test_zambretti.cpp
+  test_screen_renderer.cpp
   ${DOMAIN_ROOT}/domain/PressureHistory.cpp
   ${DOMAIN_ROOT}/domain/SeaLevelReducer.cpp
   ${DOMAIN_ROOT}/domain/TrendAnalyzer.cpp
   ${DOMAIN_ROOT}/domain/ZambrettiForecast.cpp
+  ${DOMAIN_ROOT}/ui/ScreenRenderer.cpp
 )
 
 target_include_directories(domain_tests PRIVATE ${DOMAIN_ROOT})
